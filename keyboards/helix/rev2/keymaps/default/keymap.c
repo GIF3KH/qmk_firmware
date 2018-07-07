@@ -478,6 +478,10 @@ void matrix_init_user(void) {
     #ifdef SSD1306OLED
         iota_gfx_init(!has_usb());   // turns on the display
     #endif
+    #ifdef MATERIA_ENABLE
+      init_materia(has_usb());
+      iota_gfx_init(1); // Rotate display always
+    #endif
 }
 
 
