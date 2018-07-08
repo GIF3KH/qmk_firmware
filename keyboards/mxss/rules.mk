@@ -1,4 +1,5 @@
 # MCU name
+#MCU = at90usb1286
 MCU = atmega32u4
 
 # Processor frequency.
@@ -13,6 +14,7 @@ MCU = atmega32u4
 #     reflect the processor speed set externally so that the code can use accurate
 #     software delays.
 F_CPU = 16000000
+
 
 #
 # LUFA specific
@@ -36,25 +38,38 @@ F_USB = $(F_CPU)
 # Interrupt driven control endpoint task(+60)
 OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 
-# Boot Section Size in *bytes*
-#OPT_DEFS += -DBOOTLOADER_SIZE=4096
 
-BOOTLOADER =qmk-dfu
+# Boot Section Size in *bytes*
+#   Teensy halfKay   512
+#   Teensy++ halfKay 1024
+#   Atmel DFU loader 4096
+#   LUFA bootloader  4096
+#   USBaspLoader     2048
+OPT_DEFS += -DBOOTLOADER_SIZE=4096
+
 
 # Build Options
-#   comment out to disable the options.
+#   change yes to no to disable
 #
-BOOTMAGIC_ENABLE ?= no	# Virtual DIP switch configuration(+1000)
-MOUSEKEY_ENABLE ?= no	# Mouse keys(+4700)
-EXTRAKEY_ENABLE ?= yes	# Audio control and System control(+450)
-CONSOLE_ENABLE ?= no	# Console for debug(+400)
-COMMAND_ENABLE ?= no    # Commands for debug and configuration
-SLEEP_LED_ENABLE ?= no  # Breathing sleep LED during USB suspend
-NKRO_ENABLE ?= yes		# USB Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
-BACKLIGHT_ENABLE ?= no  # Enable keyboard backlight functionality
-AUDIO_ENABLE ?= yes
-RGBLIGHT_ENABLE ?= yes
-TAP_DANCE_ENABLE = no
-EXTRAFLAGS += -flto # Make the hex smaller
+BOOTMAGIC_ENABLE = no      # Virtual DIP switch configuration(+1000)
+MOUSEKEY_ENABLE = yes       # Mouse keys(+4700)
+EXTRAKEY_ENABLE = yes       # Audio control and System control(+450)
+CONSOLE_ENABLE = no        # Console for debug(+400)
+COMMAND_ENABLE = yes        # Commands for debug and configuration
+# Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
+SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
+# if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
+NKRO_ENABLE = no            # USB Nkey Rollover
+BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality on B7 by default
+MIDI_ENABLE = no            # MIDI support (+2400 to 4200, depending on config)
+UNICODE_ENABLE = no         # Unicode
+BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
+AUDIO_ENABLE = no           # Audio output on port C6
+FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 
-LAYOUTS = planck_mit
+# Remove the common RGB light code and use my iteration instead
+OPT_DEFS += -DRGBLIGHT_ENABLE
+SRC += rgblight.c
+SRC += ws2812.c
+CIE1931_CURVE = yes
+LED_BREATHING_TABLE = yes
