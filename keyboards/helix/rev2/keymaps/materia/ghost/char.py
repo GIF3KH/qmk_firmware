@@ -1,5 +1,6 @@
-# Image to Hex Converter
+# Image to Hex Converter (for Materia characters)
 # Copyright (c) 2018 MakotoKurauchi
+# Modified by @GIF3 (for Materia characters)
 # MIT License
 
 from PIL import Image
@@ -17,8 +18,8 @@ im = array(Image.open(argvs[1]))
 
 fontw = 8
 fonth = 8
-wmax = 32//fontw
-hmax = 48//fonth
+wmax = 128//fontw
+hmax = 64//fonth
 
 for hc in range(hmax):
 	for wc in range(wmax):
