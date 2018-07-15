@@ -113,7 +113,7 @@ endif
 
 ifeq ($(strip $(MATERIA_ENABLE)), yes)
     OPT_DEFS += -DMATERIA_ENABLE
-    SRC += materia.c ssd1306.c serial.c
+    SRC += materia.c ssd1306.c
 endif
 
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
