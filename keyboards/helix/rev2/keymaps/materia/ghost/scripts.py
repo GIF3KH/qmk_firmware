@@ -57,7 +57,7 @@ for line in fs:
   line = line.replace('\\s8', '\\8')
   line = line.replace('\\s9', '\\9')
 
-  sys.stdout.write('static uint8_t talk' + "{0:02d}".format(count) + '[] = {\r\n\t')
+  sys.stdout.write('static uint8_t talk' + "{0:02d}".format(count) + '[] = {\n\t')
   count += 1
   is_command = False
   for char in line:
@@ -72,6 +72,6 @@ for line in fs:
       else:
         sys.stdout.write(convert[char] + ', ')
 
-  sys.stdout.write('};\r\n')
+  sys.stdout.write('};\n')
 
 fs.close()
